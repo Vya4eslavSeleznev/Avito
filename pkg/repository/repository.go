@@ -9,7 +9,7 @@ type User interface {
 }
 
 type Transaction interface {
-	AddTransaction(transaction avito.Transaction) (int, error)
+	AddTransaction(transaction avito.Accrual) (int, error)
 }
 
 type Repository struct {
@@ -19,6 +19,6 @@ type Repository struct {
 
 func NewRepository(db *sqlx.DB) *Repository {
 	return &Repository{
-		Transaction: NewUserRepository(db),
+		Transaction: NewTransactionRepository(db),
 	}
 }

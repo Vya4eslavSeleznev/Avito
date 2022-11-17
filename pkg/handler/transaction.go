@@ -7,7 +7,7 @@ import (
 )
 
 func (h *Handler) addTransaction(c *gin.Context) {
-	var inputData avito.Transaction
+	var inputData avito.Accrual
 
 	if err := c.BindJSON(&inputData); err != nil {
 		newErrorResponse(c, http.StatusBadRequest, "invalid input body")

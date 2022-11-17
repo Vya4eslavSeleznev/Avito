@@ -9,7 +9,7 @@ type User interface {
 }
 
 type Transaction interface {
-	AddTransaction(transaction avito.Transaction) (int, error)
+	AddTransaction(transaction avito.Accrual) (int, error)
 }
 
 type Service struct {

@@ -16,7 +16,7 @@ func NewHandler(services *service.Service) *Handler {
 func (h *Handler) InitRoutes() *gin.Engine {
 	router := gin.New()
 
-	router.POST("/add_transaction", h.addTransaction)
+	router.POST("/accrual", h.addTransaction)
 
 	return router
 }
