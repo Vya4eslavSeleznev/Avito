@@ -20,3 +20,7 @@ func (s *TransactionService) AddTransaction(transaction avito.Accrual) (int, err
 func (s *TransactionService) ReserveTransaction(transaction avito.Reservation) (int, error) {
 	return s.repo.ReserveTransaction(transaction)
 }
+
+func (s *TransactionService) GetBalance(id avito.Balance) (float64, error) {
+	return s.repo.GetBalance(id)
+}

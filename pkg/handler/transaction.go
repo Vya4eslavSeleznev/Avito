@@ -50,3 +50,23 @@ func (h *Handler) reserveTransaction(c *gin.Context) {
 		"id": id,
 	})
 }
+
+func (h *Handler) getBalance(c *gin.Context) {
+	var inputData avito.Balance
+
+	if err := c.BindJSON(&inputData); err != nil {
+		newErrorResponse(c, http.StatusBadRequest, "invalid input body")
+		return
+	}
+
+	balance, err := h.services.Transaction.GetBalance(inputData)
+
+	if err != nil {
+		newErrorResponse(c, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, map[string]interface{}{
+		"balance": balance,
+	})
+}
