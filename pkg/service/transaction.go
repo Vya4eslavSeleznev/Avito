@@ -16,3 +16,7 @@ func NewTransaction(repo repository.Transaction) *TransactionService {
 func (s *TransactionService) AddTransaction(transaction avito.Accrual) (int, error) {
 	return s.repo.AddTransaction(transaction)
 }
+
+func (s *TransactionService) ReserveTransaction(transaction avito.Reservation) (int, error) {
+	return s.repo.ReserveTransaction(transaction)
+}

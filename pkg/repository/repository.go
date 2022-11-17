@@ -10,6 +10,7 @@ type User interface {
 
 type Transaction interface {
 	AddTransaction(transaction avito.Accrual) (int, error)
+	ReserveTransaction(transaction avito.Reservation) (int, error)
 }
 
 type Repository struct {

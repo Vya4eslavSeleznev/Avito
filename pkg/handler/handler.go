@@ -17,6 +17,7 @@ func (h *Handler) InitRoutes() *gin.Engine {
 	router := gin.New()
 
 	router.POST("/accrual", h.addTransaction)
+	router.POST("/reserveTransaction", h.reserveTransaction)
 
 	return router
 }
