@@ -1,6 +1,9 @@
 package service
 
-import "Avito/pkg/repository"
+import (
+	avito "Avito"
+	"Avito/pkg/repository"
+)
 
 type TransactionService struct {
 	repo repository.Transaction
@@ -10,6 +13,6 @@ func NewTransaction(repo repository.Transaction) *TransactionService {
 	return &TransactionService{repo: repo}
 }
 
-func (s *TransactionService) AddTransaction() error {
-	return s.repo.AddTransaction()
+func (s *TransactionService) AddTransaction(transaction avito.Transaction) (int, error) {
+	return s.repo.AddTransaction(transaction)
 }

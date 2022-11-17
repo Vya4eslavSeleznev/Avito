@@ -1,15 +1,15 @@
 package repository
 
 import (
+	avito "Avito"
 	"github.com/jmoiron/sqlx"
 )
 
 type User interface {
-	AddUser() (int, error)
 }
 
 type Transaction interface {
-	AddTransaction() error
+	AddTransaction(transaction avito.Transaction) (int, error)
 }
 
 type Repository struct {
@@ -19,7 +19,6 @@ type Repository struct {
 
 func NewRepository(db *sqlx.DB) *Repository {
 	return &Repository{
-		User:        NewUserPostgres(db),
-		Transaction: NewTransactionPostgres(db),
+		Transaction: NewUserRepository(db),
 	}
 }

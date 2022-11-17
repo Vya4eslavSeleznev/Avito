@@ -6,25 +6,25 @@ import (
 	"github.com/jmoiron/sqlx"
 )
 
-type TransactionPostgres struct {
+type TransactionRepository struct {
 	db *sqlx.DB
 }
 
-func NewTransactionPostgres(db *sqlx.DB) *TransactionPostgres {
-	return &TransactionPostgres{db: db}
+func NewUserRepository(db *sqlx.DB) *TransactionRepository {
+	return &TransactionRepository{db: db}
 }
 
-func (r *TransactionPostgres) AddTransaction(transaction avito.Transaction) error {
+func (r *TransactionRepository) AddTransaction(transaction avito.Transaction) (int, error) {
+	var id int
 
-	query := fmt.Sprintf("INSERT INTO %s (user_id, amount, type, service_id, order_id, date)"+
-		"values ($1, $2, $3, $4, $5, $6)", transactionTable)
+	query := fmt.Sprintf("INSERT INTO %s (user_id, amount, type, service_id, order_id, date) values ($1, $2, $3, $4, $5, $6) RETURNING id", transactionTable)
 
 	row := r.db.QueryRow(query, transaction.UserId, transaction.Amount, transaction.Type, transaction.ServiceId,
 		transaction.OrderId, transaction.Date)
 
-	if err := row.Scan(); err != nil {
-		return err
+	if err := row.Scan(&id); err != nil {
+		return 0, err
 	}
 
-	return nil
+	return id, nil
 }

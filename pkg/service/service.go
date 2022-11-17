@@ -1,13 +1,15 @@
 package service
 
-import "Avito/pkg/repository"
+import (
+	avito "Avito"
+	"Avito/pkg/repository"
+)
 
 type User interface {
-	AddUser() (int, error)
 }
 
 type Transaction interface {
-	AddTransaction() error
+	AddTransaction(transaction avito.Transaction) (int, error)
 }
 
 type Service struct {
@@ -17,7 +19,6 @@ type Service struct {
 
 func NewService(repos *repository.Repository) *Service {
 	return &Service{
-		User:        NewUser(repos.User),
 		Transaction: NewTransaction(repos.Transaction),
 	}
 }
