@@ -103,3 +103,23 @@ func (h *Handler) getBalance(c *gin.Context) {
 		"balance": balance,
 	})
 }
+
+func (h *Handler) revenueRecognition(c *gin.Context) {
+	var inputData avito.Accounting
+
+	if err := c.BindJSON(&inputData); err != nil {
+		newErrorResponse(c, http.StatusBadRequest, "invalid input body")
+		return
+	}
+
+	id, err := h.services.RevenueRecognition(inputData)
+
+	if err != nil {
+		newErrorResponse(c, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, map[string]interface{}{
+		"balance": id,
+	})
+}

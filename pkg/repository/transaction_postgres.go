@@ -4,6 +4,7 @@ import (
 	avito "Avito"
 	"fmt"
 	"github.com/jmoiron/sqlx"
+	"math"
 	"time"
 )
 
@@ -66,4 +67,29 @@ func (r *TransactionRepository) GetBalance(id avito.Balance) (float64, error) {
 	}
 
 	return balance, nil
+}
+
+func (r *TransactionRepository) RevenueRecognition(transaction avito.Accounting) (int, error) {
+	var id int
+	tx, _ := r.db.Begin()
+
+	query := fmt.Sprintf("INSERT INTO %s (user_id, amount, type, service_id, order_id, date) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id", transactionTable)
+
+	row := r.db.QueryRow(query, transaction.UserId, -transaction.Amount, -1, transaction.ServiceId, transaction.OrderId, time.Now())
+
+	if err := row.Scan(&id); err != nil {
+		tx.Rollback()
+		return 0, err
+	}
+
+	row = r.db.QueryRow(query, transaction.UserId, math.Abs(transaction.Amount), 1, transaction.ServiceId, transaction.OrderId, time.Now())
+
+	if err := row.Scan(&id); err != nil {
+		tx.Rollback()
+		return 0, err
+	}
+
+	tx.Commit()
+
+	return id, nil
 }
