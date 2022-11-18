@@ -120,6 +120,6 @@ func (h *Handler) revenueRecognition(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, map[string]interface{}{
-		"balance": id,
+		"id": id,
 	})
 }

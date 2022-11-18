@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - 80:8080
+    depends_on:
+      - postgres
+    environment:
+      - DB_PASSWORD=root123
+    command: ["./wait-for-postgres.sh", "localhost:5433"]
+
+  postgres:
+    container_name: postgres
+    restart: always
+    image: postgres:13.9
+    volumes:
+      - C:/Docker/postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=root123
+    ports:
+      - 5433:5432
