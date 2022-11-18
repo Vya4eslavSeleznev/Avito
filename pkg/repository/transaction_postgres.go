@@ -57,12 +57,7 @@ func (r *TransactionRepository) ReserveTransaction(transaction avito.Reservation
 func (r *TransactionRepository) GetBalance(id avito.Balance) (float64, error) {
 	var balance float64
 
-	query := fmt.Sprintf(
-		"SELECT SUM("+
-			"(SELECT SUM(amount) FROM %[1]s WHERE type = 1) -"+
-			"(SELECT SUM(amount) FROM %[1]s WHERE type = 0) +"+
-			"(SELECT SUM(amount) FROM %[1]s WHERE type = -1)) AS Balance "+
-			"FROM %[1]s WHERE user_id = $1", transactionTable)
+	query := fmt.Sprintf("SELECT SUM(amount) FROM %s WHERE $1", transactionTable)
 
 	row := r.db.QueryRow(query, id.UserId)
 

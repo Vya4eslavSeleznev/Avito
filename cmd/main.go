@@ -12,6 +12,13 @@ import (
 	"os"
 )
 
+// @title Avito API
+// @version 1.0
+// @description API for AvitoTech
+
+// @host localhost:8000
+// @BasePath /
+
 func main() {
 	logrus.SetFormatter(new(logrus.JSONFormatter))
 

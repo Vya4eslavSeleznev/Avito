@@ -6,6 +6,17 @@ import (
 	"net/http"
 )
 
+// @Summary Transaction
+// @Description add transaction
+// @ID create-transaction
+// @Accept  json
+// @Produce  json
+// @Param input body avito.Accrual true "transaction info"
+// @Success 200 {integer} integer 1
+// @Failure 400 {object} errorResponse
+// @Failure 500 {object} errorResponse
+// @Failure default {object} errorResponse
+// @Router /accrual
 func (h *Handler) addTransaction(c *gin.Context) {
 	var inputData avito.Accrual
 
@@ -31,6 +42,17 @@ func (h *Handler) addTransaction(c *gin.Context) {
 	})
 }
 
+// @Summary Transaction
+// @Description reserve transaction
+// @ID reserve-transaction
+// @Accept  json
+// @Produce  json
+// @Param input body avito.Reservation true "reservation info"
+// @Success 200 {integer} integer 1
+// @Failure 400 {object} errorResponse
+// @Failure 500 {object} errorResponse
+// @Failure default {object} errorResponse
+// @Router /reserveTransaction
 func (h *Handler) reserveTransaction(c *gin.Context) {
 	var inputData avito.Reservation
 
@@ -51,6 +73,17 @@ func (h *Handler) reserveTransaction(c *gin.Context) {
 	})
 }
 
+// @Summary Balance
+// @Description user balance
+// @ID user-balance
+// @Accept  json
+// @Produce  json
+// @Param input body avito.Balance true "balance info"
+// @Success 200 {integer} integer 1
+// @Failure 400 {object} errorResponse
+// @Failure 500 {object} errorResponse
+// @Failure default {object} errorResponse
+// @Router /getBalance
 func (h *Handler) getBalance(c *gin.Context) {
 	var inputData avito.Balance
 
