@@ -1,0 +1,5 @@
+.env
+.idea/Avito.iml
+.idea/modules.xml
+.idea/vcs.xml
+.database/*
