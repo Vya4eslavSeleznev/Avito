@@ -5,9 +5,6 @@ import (
 	"github.com/jmoiron/sqlx"
 )
 
-type User interface {
-}
-
 type Transaction interface {
 	AddTransaction(transaction avito.Accrual) (int, error)
 	ReserveTransaction(transaction avito.Reservation) (int, error)
@@ -16,7 +13,6 @@ type Transaction interface {
 }
 
 type Repository struct {
-	User
 	Transaction
 }
 

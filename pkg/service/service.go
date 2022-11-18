@@ -5,8 +5,7 @@ import (
 	"Avito/pkg/repository"
 )
 
-type User interface {
-}
+//go:generate mockgen -source=service.go -destination=mocks/mock.go
 
 type Transaction interface {
 	AddTransaction(transaction avito.Accrual) (int, error)
@@ -16,7 +15,6 @@ type Transaction interface {
 }
 
 type Service struct {
-	User
 	Transaction
 }
 
