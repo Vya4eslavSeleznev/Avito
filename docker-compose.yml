@@ -6,12 +6,13 @@ services:
       context: ./
       dockerfile: Dockerfile
     ports:
-      - 80:8080
+      - 80:8000
     depends_on:
       - postgres
     environment:
       - DB_PASSWORD=root123
-    command: ["./wait-for-postgres.sh", "localhost:5433"]
+    #command: ["./wait-for-postgres.sh", "postgres:5433"]
+    restart: always
 
   postgres:
     container_name: postgres
